@@ -1,0 +1,68 @@
+services:
+
+  app:
+    build: .
+    container_name: ytblog_app
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      - ./app:/app/app
+      - ./workers:/app/workers
+      - ./channels:/app/channels
+      - ./cookies.txt:/app/cookies.txt
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  worker:
+    build: .
+    container_name: ytblog_worker
+    command: celery -A workers.pipeline_worker worker --loglevel=info --concurrency=2
+    env_file:
+      - .env
+    volumes:
+      - ./app:/app/app
+      - ./workers:/app/workers
+      - ./channels:/app/channels
+      - ./cookies.txt:/app/cookies.txt
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  db:
+    image: postgres:16
+    container_name: ytblog_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ytblog
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: ytblog_redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+  nginx:
+    image: nginx:alpine
+    container_name: ytblog_nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - app
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

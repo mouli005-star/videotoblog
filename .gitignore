@@ -1,0 +1,12 @@
+.env
+cookies.txt
+blogger_token.json
+client_secrets.json
+*.db
+__pycache__/
+*.pyc
+.venv/
+.venv311/
+channels/
+logs/
+*.mp3

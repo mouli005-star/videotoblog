@@ -1,0 +1,18 @@
+transcription:
+  dev_mode: true
+  groq_model: "whisper-large-v3"
+  gpu_server_url: ""
+  language: "en"
+  keep_audio: false
+
+blog:
+  groq_model: "llama-3.3-70b-versatile"
+  post_as_draft: false
+
+youtube:
+  skip_shorts: true
+  short_max_seconds: 120
+
+output:
+  base_dir: "./channels"
+  log_dir: "./logs"

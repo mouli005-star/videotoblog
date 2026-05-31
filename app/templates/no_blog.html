@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}No Blog Found — YT to Blog{% endblock %}
+
+{% block content %}
+<section class="mx-auto max-w-3xl rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl shadow-slate-950/30 backdrop-blur sm:p-10">
+    <div class="text-5xl">📭</div>
+
+    <h1 class="mt-6 text-3xl font-semibold text-white">No Blogger blog found</h1>
+    <p class="mt-4 max-w-2xl text-lg leading-8 text-slate-300">
+        Your Google account {{ user.email }} doesn't have a Blogger blog yet. You need one before we can auto-post.
+    </p>
+
+    <div class="mt-8 grid gap-4 md:grid-cols-2">
+        <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+            <div class="text-sm font-semibold text-slate-100">1. Create a free Blogger blog</div>
+            <p class="mt-2 text-sm leading-6 text-slate-300">
+                Go to blogger.com, sign in, click "New Blog", pick a name and URL. Takes 2 minutes.
+            </p>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+            <div class="text-sm font-semibold text-slate-100">2. Come back and reconnect</div>
+            <p class="mt-2 text-sm leading-6 text-slate-300">
+                Once your blog exists, click the button below. We'll detect it automatically.
+            </p>
+        </div>
+    </div>
+
+    <div class="mt-8 flex flex-wrap gap-4">
+        <a href="https://www.blogger.com/about/" class="rounded-full bg-brand px-6 py-3 font-medium text-white shadow-lg shadow-indigo-500/20 transition hover:bg-indigo-500">Create Blogger blog →</a>
+        <a href="/auth/login" class="rounded-full border border-white/10 px-6 py-3 font-medium text-slate-200 transition hover:border-white/20 hover:bg-white/5">Reconnect after creating →</a>
+    </div>
+</section>
+{% endblock %}

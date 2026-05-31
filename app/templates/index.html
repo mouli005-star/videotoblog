@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}YT to Blog — Auto-publish YouTube channels to Blogger{% endblock %}
+
+{% block content %}
+<section class="grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+    <div class="space-y-6">
+        <div class="inline-flex items-center gap-2 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm text-emerald-300">
+            Auto-publish YouTube to Blogger
+        </div>
+        <div class="space-y-4">
+            <h1 class="max-w-2xl text-4xl font-semibold tracking-tight text-white sm:text-5xl">
+                YouTube → Blogger, automated.
+            </h1>
+            <p class="max-w-2xl text-lg leading-8 text-slate-300">
+                Paste any YouTube channel. We transcribe every video and publish SEO-ready blog posts to your Blogger account — fully automated.
+            </p>
+        </div>
+
+        <div class="flex flex-wrap gap-4">
+            {% if user %}
+                <a href="/dashboard/" class="rounded-full bg-brand px-6 py-3 font-medium text-white shadow-lg shadow-indigo-500/20 transition hover:bg-indigo-500">Go to Dashboard →</a>
+            {% else %}
+                <a href="/auth/login" class="rounded-full bg-brand px-6 py-3 font-medium text-white shadow-lg shadow-indigo-500/20 transition hover:bg-indigo-500">Connect your Blogger account →</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="grid gap-4 rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl shadow-slate-950/40 backdrop-blur">
+        <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+            <div class="text-sm text-slate-400">1️⃣</div>
+            <div class="mt-2 text-lg font-semibold text-white">Connect Blogger</div>
+            <p class="mt-2 text-sm leading-6 text-slate-300">Sign in with Google. We get permission to post to your blog. One click, done forever.</p>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+            <div class="text-sm text-slate-400">2️⃣</div>
+            <div class="mt-2 text-lg font-semibold text-white">Paste a channel</div>
+            <p class="mt-2 text-sm leading-6 text-slate-300">Any YouTube channel URL. Pick how many videos to process. Submit.</p>
+        </div>
+        <div class="rounded-2xl border border-white/10 bg-slate-900/70 p-5">
+            <div class="text-sm text-slate-400">3️⃣</div>
+            <div class="mt-2 text-lg font-semibold text-white">Blogs go live</div>
+            <p class="mt-2 text-sm leading-6 text-slate-300">We transcribe, format, and publish each video as a blog post. Watch it happen live.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

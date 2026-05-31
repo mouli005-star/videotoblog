@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}YT to Blog{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: '#4F46E5'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100 antialiased">
+    <div class="pointer-events-none fixed inset-0 overflow-hidden">
+        <div class="absolute -top-32 left-1/2 h-80 w-80 -translate-x-1/2 rounded-full bg-indigo-500/20 blur-3xl"></div>
+        <div class="absolute bottom-0 right-0 h-96 w-96 rounded-full bg-cyan-400/10 blur-3xl"></div>
+    </div>
+
+    <header class="relative border-b border-white/10 bg-slate-950/70 backdrop-blur">
+        <div class="mx-auto flex w-full max-w-6xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
+            <a href="/" class="text-lg font-semibold tracking-tight text-white">
+                [YT → Blog]
+            </a>
+            <nav class="flex items-center gap-3 text-sm">
+                {% if user %}
+                    <div class="flex items-center gap-3 rounded-full border border-white/10 bg-white/5 px-3 py-1.5">
+                        {% if user.picture %}
+                            <img src="{{ user.picture }}" alt="{{ user.email }}" class="h-7 w-7 rounded-full object-cover">
+                        {% endif %}
+                        <span class="max-w-[11rem] truncate text-slate-200">{{ user.email }}</span>
+                    </div>
+                    <a href="/auth/logout" class="rounded-full border border-white/10 px-4 py-2 text-slate-200 transition hover:border-white/20 hover:bg-white/5">Logout</a>
+                {% else %}
+                    <a href="/auth/login" class="rounded-full bg-brand px-4 py-2 font-medium text-white shadow-lg shadow-indigo-500/20 transition hover:bg-indigo-500">Connect Blogger</a>
+                {% endif %}
+            </nav>
+        </div>
+    </header>
+
+    <main class="relative mx-auto w-full max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>
