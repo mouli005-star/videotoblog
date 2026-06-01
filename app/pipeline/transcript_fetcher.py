@@ -60,22 +60,23 @@ def ensure_channel_dirs(channel_paths):
     os.makedirs(channel_paths["blogs"], exist_ok=True)
 
 
-def get_transcript_via_api(video_id, languages):
+def get_transcript_via_api(video_id, languages=["en"]):
     try:
-        segments = YouTubeTranscriptApi.get_transcript(video_id, languages=languages)
+        from youtube_transcript_api import YouTubeTranscriptApi
+        ytt_api = YouTubeTranscriptApi()
+        transcript = ytt_api.fetch(video_id, languages=languages)
+        segments = [{"start": s.start, "duration": s.duration, "text": s.text} for s in transcript]
         return segments, "youtube-api"
-    except NoTranscriptFound:
+    except Exception:
         try:
-            transcript_list = YouTubeTranscriptApi.list_transcripts(video_id)
+            ytt_api = YouTubeTranscriptApi()
+            transcript_list = ytt_api.list(video_id)
             transcript = transcript_list.find_generated_transcript(languages)
-            segments = transcript.fetch()
+            fetched = transcript.fetch()
+            segments = [{"start": s.start, "duration": s.duration, "text": s.text} for s in fetched]
             return segments, "youtube-auto"
         except Exception:
             return None, None
-    except TranscriptsDisabled:
-        return None, None
-    except Exception:
-        return None, None
 
 
 def download_audio(video_id, audio_dir, cookies_path=None):
