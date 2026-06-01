@@ -83,31 +83,24 @@ def download_audio(video_id, audio_dir, cookies_path=None):
     url = f"https://www.youtube.com/watch?v={video_id}"
     output_template = os.path.join(audio_dir, f"{video_id}.%(ext)s")
 
-    command = [
-        sys.executable,
-        "-m",
-        "yt_dlp",
+    cmd = [
+        "yt-dlp",
+        "--js-runtimes", "node",
+        "--remote-components", "ejs:github",
         "-x",
-        "--audio-format",
-        "mp3",
-        "--audio-quality",
-        "5",
+        "--audio-format", "mp3",
+        "--audio-quality", "5",
+        "-o", output_template,
         "--no-playlist",
-        "--sleep-interval",
-        "2",
-        "--max-sleep-interval",
-        "5",
-        "-o",
-        output_template,
     ]
 
     if cookies_path and os.path.exists(cookies_path):
-        command.extend(["--cookies", cookies_path])
+        cmd += ["--cookies", cookies_path]
 
-    command.append(url)
+    cmd.append(url)
 
     print("      Downloading audio...")
-    result = subprocess.run(command, capture_output=True, text=True)
+    result = subprocess.run(cmd, capture_output=True, text=True)
 
     if result.returncode != 0:
         print(f"      x Download failed: {result.stderr[:200]}")
