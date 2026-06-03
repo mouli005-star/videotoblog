@@ -1,6 +1,6 @@
 # yt-to-blog-web
 
-A small FastAPI app that converts YouTube channel transcripts into blog posts and publishes them to Blogger.
+A FastAPI application that converts YouTube channel transcripts into blog posts and publishes them to Blogger.
 
 ## Features
 
